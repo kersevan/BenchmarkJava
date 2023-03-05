@@ -1,6 +1,5 @@
 # This dockerfile builds a container that pulls down and runs the latest version of Benchmark
 FROM ubuntu:latest
-MAINTAINER "Dave Wichers dave.wichers@owasp.org"
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
@@ -17,13 +16,15 @@ RUN mkdir /owasp
 WORKDIR /owasp
 
 # Download, build, install Benchmark Utilities required by crawler and scorecard generation
-RUN git clone https://github.com/OWASP-Benchmark/BenchmarkUtils.git
+# RUN git clone https://github.com/OWASP-Benchmark/BenchmarkUtils.git
+RUN git clone https://github.com/kersevan/BenchmarkUtils.git
 WORKDIR /owasp/BenchmarkUtils
 RUN mvn install
 
 # Download, build BenchmarkJava
 WORKDIR /owasp
-RUN git clone https://github.com/OWASP-Benchmark/BenchmarkJava
+# RUN git clone https://github.com/OWASP-Benchmark/BenchmarkJava
+RUN git clone https://github.com/kersevan/BenchmarkJava
 
 # Workaround for security fix for CVE-2022-24765
 RUN git config --global --add safe.directory /owasp/BenchmarkJava
